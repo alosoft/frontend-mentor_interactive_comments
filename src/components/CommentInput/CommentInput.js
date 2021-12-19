@@ -15,6 +15,7 @@ const CommentInput = ({ comment, reload, value }) => {
 
         if (text.trim().length === 0) {
             alert('Cannot post empty comment');
+            return;
         }
 
         let index = 0;
