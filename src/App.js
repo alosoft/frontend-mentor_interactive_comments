@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import React, { useContext } from 'react';
 import './App.css';
+import CommentBox from './components/CommentBox/CommentBox';
+import CommentInput from './components/CommentInput/CommentInput';
+import { DataContext } from './provider';
 
 function App() {
+  console.log('Building App')
+  const [comments, setComments] = useContext(DataContext);
+  // console.log(comments)
+  const [reload, setReload] = React.useState(false);
+  function reloadApp() {
+    setReload(!reload);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="comment">
+        {comments !== undefined ?
+          
+          comments.comments.map(item => <CommentBox reloadApp={reloadApp} comment={item} key={item.id} />)
+          : null
+        }
+      </div>
+      <CommentInput />
     </div>
   );
 }
